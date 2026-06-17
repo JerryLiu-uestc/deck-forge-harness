@@ -1,5 +1,21 @@
 # Installation
 
+## Download
+
+Download the ZIP from GitHub:
+
+```text
+https://github.com/JerryLiu-uestc/deck-forge-harness/archive/refs/heads/main.zip
+```
+
+Or use `git clone` if you prefer keeping the plugin up to date through Git:
+
+```bash
+git clone https://github.com/JerryLiu-uestc/deck-forge-harness ~/plugins/deck-forge-harness
+```
+
+## Enable In Codex
+
 1. Download the repository ZIP from GitHub.
 2. Unzip it.
 3. Move the folder to a local plugin location, for example:
@@ -16,12 +32,45 @@ If your Codex setup does not automatically discover `~/plugins`, add this plugin
 ./plugins/deck-forge-harness
 ```
 
-## Optional Runtime Dependencies
+## Ask Codex To Install It
+
+Copy this into Codex:
+
+```text
+Please install the Codex plugin from https://github.com/JerryLiu-uestc/deck-forge-harness.
+Use the safe local-plugin flow: download or clone the repository, place it under ~/plugins/deck-forge-harness, register it in my personal Codex marketplace if needed, then run the plugin validator. Do not run remote shell installer commands.
+After installation, tell me how to enable DeckForge Harness in Codex and whether optional runtime dependencies are missing on my OS.
+```
+
+## Optional Runtime Dependencies By Platform
 
 DeckForge can be enabled as a plugin without running a shell installer. Some local harness features need external tools:
 
 - `python-pptx` and Pillow for PPTX generation;
 - LibreOffice and Poppler for PPTX render QA;
 - Node.js and Playwright for HTML/browser capture.
+
+macOS:
+
+```bash
+brew install --cask libreoffice
+brew install poppler
+python3 -m pip install python-pptx pillow
+```
+
+Linux:
+
+```bash
+sudo apt-get install libreoffice poppler-utils
+python3 -m pip install python-pptx pillow
+```
+
+Windows:
+
+```powershell
+py -m pip install python-pptx pillow pywin32
+```
+
+On Windows, WPS/MS Office COM automation additionally requires WPS Office or Microsoft Office to be installed. On macOS, WPS COM is not available.
 
 If these are missing, DeckForge should report the missing capability and use the best available fallback.

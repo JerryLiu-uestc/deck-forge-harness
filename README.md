@@ -47,13 +47,27 @@ It does not magically recover native chart data, hidden design layers, or exact 
 
 Recommended:
 
-1. Download this repository as a ZIP from GitHub.
+1. Download this repository as a ZIP: [deck-forge-harness-main.zip](https://github.com/JerryLiu-uestc/deck-forge-harness/archive/refs/heads/main.zip).
 2. Unzip it locally.
 3. In Codex, install or enable the local plugin folder `deck-forge-harness`.
 
 Then restart Codex or refresh plugins, and enable **DeckForge Harness** from the **Personal** marketplace.
 
+If you want Codex to help install it, send this prompt to your Codex agent:
+
+```text
+Please install the Codex plugin from https://github.com/JerryLiu-uestc/deck-forge-harness.
+Use the safe local-plugin flow: download or clone the repository, place it under ~/plugins/deck-forge-harness, register it in my personal Codex marketplace if needed, then run the plugin validator. Do not run remote shell installer commands.
+After installation, tell me how to enable DeckForge Harness in Codex and whether optional runtime dependencies are missing on my OS.
+```
+
 Detailed install notes and optional dependency setup: [INSTALL.md](INSTALL.md)
+
+Platform dependency notes:
+
+- macOS: optional render QA needs LibreOffice and Poppler.
+- Linux: optional render QA needs LibreOffice and Poppler utilities.
+- Windows: optional live Office automation needs WPS or Microsoft Office plus `pywin32`; WPS/MS Office COM is Windows-only.
 
 ## Use
 

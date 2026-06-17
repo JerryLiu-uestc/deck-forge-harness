@@ -47,13 +47,27 @@ DeckForge 支持多种输出策略：
 
 推荐方式：
 
-1. 在 GitHub 下载本仓库 ZIP。
+1. 下载本仓库 ZIP：[deck-forge-harness-main.zip](https://github.com/JerryLiu-uestc/deck-forge-harness/archive/refs/heads/main.zip)。
 2. 解压到本地。
 3. 在 Codex 中安装或启用本地插件文件夹 `deck-forge-harness`。
 
 然后重启 Codex 或刷新插件列表，在 **Personal** marketplace 里启用 **DeckForge Harness**。
 
+如果你希望 Codex 帮你安装，可以把下面这段话发给你的 Codex agent：
+
+```text
+请帮我安装这个 Codex 插件：https://github.com/JerryLiu-uestc/deck-forge-harness。
+请使用安全的本地插件安装流程：下载或 clone 仓库，放到 ~/plugins/deck-forge-harness，必要时注册到我的个人 Codex marketplace，然后运行插件校验。不要运行远程 shell 安装命令。
+安装后请告诉我如何在 Codex 里启用 DeckForge Harness，并检查我当前系统是否缺少可选运行依赖。
+```
+
 详细安装说明和可选依赖配置：[INSTALL-zh.md](INSTALL-zh.md)
+
+平台依赖说明：
+
+- macOS：可选渲染 QA 需要 LibreOffice 和 Poppler。
+- Linux：可选渲染 QA 需要 LibreOffice 和 Poppler utilities。
+- Windows：可选真实 Office 自动化需要 WPS 或 Microsoft Office，加上 `pywin32`；WPS/MS Office COM 只支持 Windows。
 
 ## 使用
 
