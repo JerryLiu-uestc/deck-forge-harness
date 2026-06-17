@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""DeckForge local harness utilities.
+"""HTML to Editable PPT local harness utilities.
 
-This script provides deterministic glue for the DeckForge skills. It does not
+This script provides deterministic glue for the HTML to Editable PPT skills. It does not
 replace Playwright MCP or frontend-design; it gives Codex repeatable local
 commands for the file and render stages around those tools.
 """
@@ -140,7 +140,7 @@ def cmd_images_to_pptx(args: argparse.Namespace) -> None:
             x = 0
             y = (sh - h) / 2
         pic = slide.shapes.add_picture(str(image), x, y, width=int(w), height=int(h))
-        pic.name = f"DeckForge full-slide image {idx:02d}"
+        pic.name = f"HTML to Editable PPT full-slide image {idx:02d}"
 
     prs.save(output)
     print(f"pptx: {output}")
@@ -345,11 +345,11 @@ def make_contact_sheet(images: list[Path], output: Path) -> None:
 
 
 def parser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser(description="DeckForge local harness")
+    p = argparse.ArgumentParser(description="HTML to Editable PPT local harness")
     sub = p.add_subparsers(dest="cmd", required=True)
 
     init = sub.add_parser("init")
-    init.add_argument("--project", default="deckforge")
+    init.add_argument("--project", default="editable-ppt")
     init.set_defaults(func=cmd_init)
 
     doctor = sub.add_parser("doctor")

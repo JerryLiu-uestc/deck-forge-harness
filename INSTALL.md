@@ -5,13 +5,13 @@
 Download the ZIP from GitHub:
 
 ```text
-https://github.com/JerryLiu-uestc/deck-forge-harness/archive/refs/heads/main.zip
+https://github.com/JerryLiu-uestc/html-to-editable-ppt/archive/refs/heads/main.zip
 ```
 
 Or use `git clone` if you prefer keeping the plugin up to date through Git:
 
 ```bash
-git clone https://github.com/JerryLiu-uestc/deck-forge-harness ~/plugins/deck-forge-harness
+git clone https://github.com/JerryLiu-uestc/html-to-editable-ppt ~/plugins/html-to-editable-ppt
 ```
 
 ## Enable In Codex
@@ -21,15 +21,15 @@ git clone https://github.com/JerryLiu-uestc/deck-forge-harness ~/plugins/deck-fo
 3. Move the folder to a local plugin location, for example:
 
 ```text
-~/plugins/deck-forge-harness
+~/plugins/html-to-editable-ppt
 ```
 
-4. Open Codex, refresh plugins, and enable **DeckForge Harness** from the local/personal marketplace.
+4. Open Codex, refresh plugins, and enable **HTML to Editable PPT** from the local/personal marketplace.
 
 If your Codex setup does not automatically discover `~/plugins`, add this plugin to your personal marketplace entry. The expected plugin path is:
 
 ```text
-./plugins/deck-forge-harness
+./plugins/html-to-editable-ppt
 ```
 
 ## Ask Codex To Install It
@@ -37,14 +37,14 @@ If your Codex setup does not automatically discover `~/plugins`, add this plugin
 Copy this into Codex:
 
 ```text
-Please install the Codex plugin from https://github.com/JerryLiu-uestc/deck-forge-harness.
-Use the safe local-plugin flow: download or clone the repository, place it under ~/plugins/deck-forge-harness, register it in my personal Codex marketplace if needed, then run the plugin validator. Do not run remote shell installer commands.
-After installation, tell me how to enable DeckForge Harness in Codex and whether optional runtime dependencies are missing on my OS.
+Please install the Codex plugin from https://github.com/JerryLiu-uestc/html-to-editable-ppt.
+Use the safe local-plugin flow: download or clone the repository, place it under ~/plugins/html-to-editable-ppt, register it in my personal Codex marketplace if needed, then run the plugin validator. Do not run remote shell installer commands.
+After installation, tell me how to enable HTML to Editable PPT in Codex and whether optional runtime dependencies are missing on my OS.
 ```
 
 ## Optional Runtime Dependencies By Platform
 
-DeckForge can be enabled as a plugin without running a shell installer. Some local harness features need external tools:
+HTML to Editable PPT can be enabled as a plugin without running a shell installer. Some local harness features need external tools:
 
 - `python-pptx` and Pillow for PPTX generation;
 - LibreOffice and Poppler for PPTX render QA;
@@ -73,4 +73,4 @@ py -m pip install python-pptx pillow pywin32
 
 On Windows, WPS/MS Office COM automation additionally requires WPS Office or Microsoft Office to be installed. On macOS, WPS COM is not available.
 
-If these are missing, DeckForge should report the missing capability and use the best available fallback.
+If these are missing, HTML to Editable PPT should report the missing capability and use the best available fallback.

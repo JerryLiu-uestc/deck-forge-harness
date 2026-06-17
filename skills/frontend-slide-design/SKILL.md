@@ -1,6 +1,6 @@
 ---
 name: frontend-slide-design
-description: Use this skill when designing presentation slides as HTML/CSS/React/SVG frontend canvases before exporting them to PPTX. Use especially with DeckForge workflows, frontend-design-inspired slide visuals, or when a user wants richer visual quality than native PowerPoint shape editing.
+description: Use this skill when designing presentation slides as HTML/CSS/React/SVG frontend canvases before exporting them to PPTX. Use especially with HTML to Editable PPT workflows, frontend-design-inspired slide visuals, or when a user wants richer visual quality than native PowerPoint shape editing.
 ---
 
 # Frontend Slide Design
@@ -9,7 +9,7 @@ Design slides as frontend canvases first, then export to images or PPTX.
 
 ## Intake Dependency
 
-Do not start visual design until DeckForge intake has locked the audience, use case, page count, title, language, source scope, style direction, editability target, and quality reference. If this information is missing, return to `deck-forge` intake instead of designing from assumptions.
+Do not start visual design until HTML to Editable PPT intake has locked the audience, use case, page count, title, language, source scope, style direction, editability target, and quality reference. If this information is missing, return to `html-to-editable-ppt` intake instead of designing from assumptions.
 
 ## Canvas Contract
 

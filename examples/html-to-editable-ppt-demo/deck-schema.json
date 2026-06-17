@@ -4,7 +4,7 @@
     {
       "background": "#111827",
       "elements": [
-        {"type": "text", "x": 74, "y": 62, "w": 260, "h": 34, "text": "DECKFORGE HARNESS", "fs": 15, "bold": true, "color": "#2DD4BF"},
+        {"type": "text", "x": 74, "y": 62, "w": 260, "h": 34, "text": "HTML TO EDITABLE PPT", "fs": 15, "bold": true, "color": "#2DD4BF"},
         {"type": "text", "x": 72, "y": 140, "w": 770, "h": 145, "text": "Image-first decks,\neditable by default", "fs": 52, "bold": true, "color": "#F9FAFB"},
         {"type": "text", "x": 76, "y": 318, "w": 620, "h": 92, "text": "Turn screenshots, generated slide art,\nand frontend slide canvases into\neditable PowerPoint files.", "fs": 18, "color": "#CBD5E1"},
         {"type": "card", "x": 790, "y": 94, "w": 360, "h": 128, "fill": "#0F766E", "line": "#14B8A6"},
@@ -17,7 +17,7 @@
         {"type": "text", "x": 882, "y": 452, "w": 300, "h": 36, "text": "3. Render and QA", "fs": 25, "bold": true, "color": "#111827"},
         {"type": "text", "x": 884, "y": 496, "w": 286, "h": 42, "text": "Render images,\ninspect, then fix.", "fs": 13, "color": "#374151"},
         {"type": "line", "x": 76, "y": 574, "w": 590, "h": 5, "color": "#2DD4BF"},
-        {"type": "text", "x": 76, "y": 596, "w": 520, "h": 36, "text": "Demo deck generated from examples/deckforge-demo/deck-schema.json", "fs": 13, "color": "#94A3B8"}
+        {"type": "text", "x": 76, "y": 596, "w": 520, "h": 36, "text": "Demo deck generated from examples/html-to-editable-ppt-demo/deck-schema.json", "fs": 13, "color": "#94A3B8"}
       ]
     },
     {
@@ -120,7 +120,7 @@
         {"type": "text", "x": 862, "y": 282, "w": 142, "h": 34, "text": "Inspect", "fs": 30, "bold": true, "color": "#111827"},
         {"type": "text", "x": 862, "y": 330, "w": 142, "h": 26, "text": "layout defects", "fs": 15, "color": "#431407"},
         {"type": "card", "x": 168, "y": 564, "w": 844, "h": 62, "fill": "#111827", "line": "#111827"},
-        {"type": "text", "x": 202, "y": 584, "w": 790, "h": 24, "text": "Final deliverable: deckforge-demo.pptx", "fs": 18, "bold": true, "color": "#F9FAFB"}
+        {"type": "text", "x": 202, "y": 584, "w": 790, "h": 24, "text": "Final deliverable: html-to-editable-ppt-demo.pptx", "fs": 18, "bold": true, "color": "#F9FAFB"}
       ]
     }
   ]

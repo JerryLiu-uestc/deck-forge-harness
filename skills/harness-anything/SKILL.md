@@ -53,7 +53,7 @@ Borrow the `harness-anything` / `cli-anything-wps` idea as an adapter pattern, n
 | macOS | `python-pptx` plus LibreOffice headless | PPTX file assembly, conversion, render QA | live WPS COM automation |
 | Linux | `python-pptx` plus LibreOffice headless | batch creation/conversion/QA | PowerPoint/WPS UI control |
 
-Run `python3 ~/plugins/deck-forge-harness/scripts/deckforge.py doctor` before choosing a backend when the environment is uncertain.
+Run `python3 ~/plugins/html-to-editable-ppt/scripts/html_to_editable_ppt.py doctor` before choosing a backend when the environment is uncertain.
 
 ## JSON Element Router Pattern
 
@@ -80,12 +80,12 @@ Minimal schema:
 Build it with:
 
 ```bash
-python3 ~/plugins/deck-forge-harness/scripts/deckforge.py schema-to-pptx \
-  --schema deckforge/harness/deck-schema.json \
-  --output deckforge/pptx/deck.pptx
+python3 ~/plugins/html-to-editable-ppt/scripts/html_to_editable_ppt.py schema-to-pptx \
+  --schema editable-ppt/harness/deck-schema.json \
+  --output editable-ppt/pptx/deck.pptx
 ```
 
-Supported portable element types are intentionally small: `text`, `rect`, `rrect`/`card`, `image`, and `line`. Add project-specific routers in `deckforge/harness/` only when the deck repeatedly needs custom components such as timelines, stat cards, or tables.
+Supported portable element types are intentionally small: `text`, `rect`, `rrect`/`card`, `image`, and `line`. Add project-specific routers in `editable-ppt/harness/` only when the deck repeatedly needs custom components such as timelines, stat cards, or tables.
 
 ## GUI App Rule
 

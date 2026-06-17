@@ -1,11 +1,11 @@
 ---
-name: deck-forge
+name: html-to-editable-ppt
 description: Use this skill when the user wants an end-to-end AI presentation workflow that combines Playwright/browser capture, frontend-designed slide canvases, harness automation, and PPTX export or verification. Trigger for requests like "按 Playwright MCP + frontend-design + harness-anything 做 PPT 插件", "build a deck workflow", "capture website into PPT", or "automate a presentation pipeline".
 ---
 
-# DeckForge
+# HTML to Editable PPT
 
-DeckForge is the orchestrator skill for a presentation workflow built around three lanes:
+HTML to Editable PPT is the orchestrator skill for a presentation workflow built around three lanes:
 
 1. **Capture**: collect screenshots, DOM text, assets, and source URLs with Playwright MCP, the Browser plugin, or local Playwright.
 2. **Design**: build each slide as a frontend canvas using `frontend-design` when available; otherwise create HTML/CSS/SVG with the same discipline.
@@ -33,7 +33,7 @@ After intake, produce a slide plan and visual direction summary. Wait for approv
 
 ## Visual Quality Bar
 
-Every DeckForge deck should aim for a visibly polished, presentation-ready result. "Good-looking" is not optional; convert it into checkable criteria:
+Every HTML to Editable PPT deck should aim for a visibly polished, presentation-ready result. "Good-looking" is not optional; convert it into checkable criteria:
 
 - strong main visual or dominant information structure on each slide;
 - clear hierarchy, confident title treatment, and deliberate typography;
@@ -50,7 +50,7 @@ Before exporting PPTX, create or inspect preview images. If a slide looks generi
 Use this sequence unless the user gives a narrower task:
 
 1. Complete intake and get approval for the slide plan plus visual direction.
-2. Create a `deckforge/` workspace under the project:
+2. Create a `editable-ppt/` workspace under the project:
    - `captures/` for screenshots and source pulls
    - `slides/` for HTML slide canvases
    - `renders/` for PNG previews
@@ -79,38 +79,38 @@ Use this sequence unless the user gives a narrower task:
 
 ## Local CLI
 
-The plugin includes `scripts/deckforge.py` for common filesystem and export tasks:
+The plugin includes `scripts/html_to_editable_ppt.py` for common filesystem and export tasks:
 
 ```bash
-python3 ~/plugins/deck-forge-harness/scripts/deckforge.py init --project deckforge
+python3 ~/plugins/html-to-editable-ppt/scripts/html_to_editable_ppt.py init --project editable-ppt
 ```
 
 ```bash
-python3 ~/plugins/deck-forge-harness/scripts/deckforge.py html-to-png \
-  --html deckforge/slides/index.html \
-  --out-dir deckforge/renders
+python3 ~/plugins/html-to-editable-ppt/scripts/html_to_editable_ppt.py html-to-png \
+  --html editable-ppt/slides/index.html \
+  --out-dir editable-ppt/renders
 ```
 
 ```bash
-python3 ~/plugins/deck-forge-harness/scripts/deckforge.py images-to-pptx \
-  --input-dir deckforge/renders \
-  --output deckforge/pptx/deck.pptx
+python3 ~/plugins/html-to-editable-ppt/scripts/html_to_editable_ppt.py images-to-pptx \
+  --input-dir editable-ppt/renders \
+  --output editable-ppt/pptx/deck.pptx
 ```
 
 ```bash
-python3 ~/plugins/deck-forge-harness/scripts/deckforge.py render-pptx \
-  --pptx deckforge/pptx/deck.pptx \
-  --out-dir deckforge/qa
+python3 ~/plugins/html-to-editable-ppt/scripts/html_to_editable_ppt.py render-pptx \
+  --pptx editable-ppt/pptx/deck.pptx \
+  --out-dir editable-ppt/qa
 ```
 
 ```bash
-python3 ~/plugins/deck-forge-harness/scripts/deckforge.py doctor
+python3 ~/plugins/html-to-editable-ppt/scripts/html_to_editable_ppt.py doctor
 ```
 
 ```bash
-python3 ~/plugins/deck-forge-harness/scripts/deckforge.py schema-to-pptx \
-  --schema deckforge/harness/deck-schema.json \
-  --output deckforge/pptx/deck.pptx
+python3 ~/plugins/html-to-editable-ppt/scripts/html_to_editable_ppt.py schema-to-pptx \
+  --schema editable-ppt/harness/deck-schema.json \
+  --output editable-ppt/pptx/deck.pptx
 ```
 
 ## Decision Rules
