@@ -25,6 +25,10 @@ python3 scripts/deckforge.py init --project deckforge
 ```
 
 ```bash
+python3 scripts/deckforge.py doctor
+```
+
+```bash
 python3 scripts/deckforge.py html-to-png \
   --html deckforge/slides/index.html \
   --out-dir deckforge/renders
@@ -33,6 +37,12 @@ python3 scripts/deckforge.py html-to-png \
 ```bash
 python3 scripts/deckforge.py images-to-pptx \
   --input-dir deckforge/renders \
+  --output deckforge/pptx/deck.pptx
+```
+
+```bash
+python3 scripts/deckforge.py schema-to-pptx \
+  --schema deckforge/harness/deck-schema.json \
   --output deckforge/pptx/deck.pptx
 ```
 
@@ -52,3 +62,11 @@ python3 scripts/deckforge.py render-pptx \
 - Poppler `pdftoppm` for slide preview rendering
 
 The plugin uses MCP/browser tooling when available, but keeps deterministic local scripts for the export and verification stages.
+
+## Harness-Anything Backend Notes
+
+DeckForge borrows the useful `harness-anything` pattern: expose fragile GUI or document workflows as small, observable CLI adapters. It does not assume every platform can control WPS or PowerPoint directly.
+
+- Windows: WPS/MS Office COM can be used as an optional live Office backend when `pywin32` and Office are installed.
+- macOS/Linux: default to `python-pptx` for PPTX file creation and LibreOffice headless for conversion/render QA.
+- Structured decks: use JSON element routing (`schema-to-pptx`) before writing one-off PPT generation code.

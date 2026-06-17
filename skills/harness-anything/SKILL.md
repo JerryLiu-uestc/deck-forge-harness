@@ -40,7 +40,52 @@ Tool preference:
 3. `python-pptx` for PPTX creation/light edits.
 4. LibreOffice `soffice` for PDF export.
 5. Poppler `pdftoppm` for preview images.
-6. PowerPoint/WPS GUI automation only as a last mile fallback.
+6. Windows WPS/MS Office COM only when available and explicitly useful.
+7. PowerPoint/WPS GUI automation only as a last mile fallback.
+
+## Office Backend Matrix
+
+Borrow the `harness-anything` / `cli-anything-wps` idea as an adapter pattern, not as a universal dependency:
+
+| Platform | Preferred Office control | Use for | Do not claim |
+| --- | --- | --- | --- |
+| Windows | WPS COM or MS Office COM through `pywin32` | live WPS/PowerPoint creation, exact Office rendering, PDF export | cross-platform availability |
+| macOS | `python-pptx` plus LibreOffice headless | PPTX file assembly, conversion, render QA | live WPS COM automation |
+| Linux | `python-pptx` plus LibreOffice headless | batch creation/conversion/QA | PowerPoint/WPS UI control |
+
+Run `python3 ~/plugins/deck-forge-harness/scripts/deckforge.py doctor` before choosing a backend when the environment is uncertain.
+
+## JSON Element Router Pattern
+
+For structured decks, prefer a small JSON schema with typed elements over ad hoc code. This mirrors the useful part of WPS COM examples while staying portable.
+
+Minimal schema:
+
+```json
+{
+  "canvas": {"w": 1280, "h": 720},
+  "slides": [
+    {
+      "background": "#FFFFFF",
+      "elements": [
+        {"type": "text", "x": 80, "y": 60, "w": 900, "h": 70, "text": "Title", "fs": 40, "bold": true},
+        {"type": "card", "x": 80, "y": 160, "w": 360, "h": 160, "fill": "#F8FAFC"},
+        {"type": "image", "x": 520, "y": 150, "w": 620, "h": 360, "file": "capture.png"}
+      ]
+    }
+  ]
+}
+```
+
+Build it with:
+
+```bash
+python3 ~/plugins/deck-forge-harness/scripts/deckforge.py schema-to-pptx \
+  --schema deckforge/harness/deck-schema.json \
+  --output deckforge/pptx/deck.pptx
+```
+
+Supported portable element types are intentionally small: `text`, `rect`, `rrect`/`card`, `image`, and `line`. Add project-specific routers in `deckforge/harness/` only when the deck repeatedly needs custom components such as timelines, stat cards, or tables.
 
 ## GUI App Rule
 
@@ -49,6 +94,7 @@ Only build GUI automation for WPS or PowerPoint when:
 - the user explicitly asks for WPS/PowerPoint behavior;
 - direct PPTX file editing cannot perform the task;
 - the workflow can be verified by exported files or screenshots.
+- the platform exposes a stable automation surface. On macOS, treat WPS as manual unless a verified scriptable interface is available.
 
 ## Output Contract
 

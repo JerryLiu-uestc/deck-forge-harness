@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import platform
 import shutil
 import subprocess
 import sys
@@ -17,7 +18,9 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageOps, ImageStat
 from pptx import Presentation
-from pptx.util import Inches
+from pptx.dml.color import RGBColor
+from pptx.enum.shapes import MSO_SHAPE
+from pptx.util import Inches, Pt
 
 
 SLIDE_W = 13.333333
@@ -43,6 +46,30 @@ def cmd_init(args: argparse.Namespace) -> None:
     if not sources.exists():
         sources.write_text(json.dumps({"sources": []}, indent=2) + "\n", encoding="utf-8")
     print(root)
+
+
+def cmd_doctor(args: argparse.Namespace) -> None:
+    system = platform.system()
+    checks = {
+        "platform": system,
+        "python": sys.executable,
+        "node": shutil.which("node"),
+        "soffice": shutil.which("soffice") or shutil.which("libreoffice"),
+        "pdftoppm": shutil.which("pdftoppm"),
+        "pywin32": False,
+        "recommended_backend": "python-pptx + LibreOffice",
+    }
+    if system == "Windows":
+        try:
+            import win32com.client  # type: ignore
+
+            checks["pywin32"] = True
+            checks["recommended_backend"] = "WPS/MS Office COM for live Office automation; python-pptx for file edits"
+        except Exception:
+            checks["recommended_backend"] = "python-pptx; install pywin32 + WPS/MS Office for COM automation"
+    elif system == "Darwin":
+        checks["recommended_backend"] = "python-pptx + LibreOffice; WPS COM is unavailable on macOS"
+    print(json.dumps(checks, ensure_ascii=False, indent=2))
 
 
 def cmd_html_to_png(args: argparse.Namespace) -> None:
@@ -119,6 +146,137 @@ def cmd_images_to_pptx(args: argparse.Namespace) -> None:
     print(f"slides: {len(images)}")
 
 
+def hex_color(value: str, default: str = "000000") -> str:
+    text = str(value or default).strip().replace("#", "")
+    if len(text) == 3:
+        text = "".join(ch * 2 for ch in text)
+    try:
+        int(text, 16)
+    except ValueError:
+        return default
+    return text.upper() if len(text) == 6 else default
+
+
+def px_scale(canvas: dict) -> tuple[float, float]:
+    w = float(canvas.get("w", 1280))
+    h = float(canvas.get("h", 720))
+    if w <= 0 or h <= 0:
+        fail("canvas.w and canvas.h must be positive")
+    return SLIDE_W / w, SLIDE_H / h
+
+
+def add_schema_text(slide, el: dict, sx: float, sy: float) -> None:
+    shape = slide.shapes.add_textbox(
+        Inches(float(el.get("x", 0)) * sx),
+        Inches(float(el.get("y", 0)) * sy),
+        Inches(float(el.get("w", 200)) * sx),
+        Inches(float(el.get("h", 50)) * sy),
+    )
+    tf = shape.text_frame
+    tf.clear()
+    tf.margin_left = tf.margin_right = tf.margin_top = tf.margin_bottom = 0
+    p = tf.paragraphs[0]
+    p.text = str(el.get("text", ""))
+    p.font.size = Pt(float(el.get("fs", 24)))
+    p.font.bold = bool(el.get("bold", False))
+    p.font.name = str(el.get("font", "Arial"))
+    p.font.color.rgb = RGBColor.from_string(hex_color(el.get("color", "111827")))
+    align = str(el.get("align", "left")).lower()
+    if align in {"center", "2"}:
+        p.alignment = 2
+    elif align in {"right", "3"}:
+        p.alignment = 3
+
+
+def add_schema_rect(slide, el: dict, sx: float, sy: float, rounded: bool = False) -> None:
+    kind = MSO_SHAPE.ROUNDED_RECTANGLE if rounded else MSO_SHAPE.RECTANGLE
+    shape = slide.shapes.add_shape(
+        kind,
+        Inches(float(el.get("x", 0)) * sx),
+        Inches(float(el.get("y", 0)) * sy),
+        Inches(float(el.get("w", 100)) * sx),
+        Inches(float(el.get("h", 40)) * sy),
+    )
+    shape.fill.solid()
+    shape.fill.fore_color.rgb = RGBColor.from_string(hex_color(el.get("fill", el.get("color", "FFFFFF")), "FFFFFF"))
+    line_color = el.get("line")
+    if line_color:
+        shape.line.color.rgb = RGBColor.from_string(hex_color(line_color))
+        shape.line.width = Pt(float(el.get("line_width", 1)))
+    else:
+        shape.line.fill.background()
+
+
+def add_schema_image(slide, el: dict, sx: float, sy: float, base_dir: Path) -> None:
+    image = Path(str(el.get("file", "")))
+    if not image.is_absolute():
+        image = base_dir / image
+    if not image.exists():
+        fail(f"schema image not found: {image}")
+    slide.shapes.add_picture(
+        str(image),
+        Inches(float(el.get("x", 0)) * sx),
+        Inches(float(el.get("y", 0)) * sy),
+        width=Inches(float(el.get("w", 100)) * sx),
+        height=Inches(float(el.get("h", 100)) * sy),
+    )
+
+
+def add_schema_line(slide, el: dict, sx: float, sy: float) -> None:
+    shape = slide.shapes.add_shape(
+        MSO_SHAPE.RECTANGLE,
+        Inches(float(el.get("x", 0)) * sx),
+        Inches(float(el.get("y", 0)) * sy),
+        Inches(float(el.get("w", 100)) * sx),
+        Inches(max(float(el.get("h", 2)) * sy, 0.01)),
+    )
+    shape.fill.solid()
+    shape.fill.fore_color.rgb = RGBColor.from_string(hex_color(el.get("color", "111827")))
+    shape.line.fill.background()
+
+
+def cmd_schema_to_pptx(args: argparse.Namespace) -> None:
+    schema_path = Path(args.schema).resolve()
+    if not schema_path.exists():
+        fail(f"missing schema file: {schema_path}")
+    data = json.loads(schema_path.read_text(encoding="utf-8"))
+    output = Path(args.output).resolve()
+    output.parent.mkdir(parents=True, exist_ok=True)
+
+    prs = Presentation()
+    prs.slide_width = Inches(SLIDE_W)
+    prs.slide_height = Inches(SLIDE_H)
+    blank = prs.slide_layouts[6]
+    canvas = data.get("canvas", {"w": 1280, "h": 720})
+    sx, sy = px_scale(canvas)
+    base_dir = schema_path.parent
+
+    for slide_data in data.get("slides", []):
+        slide = prs.slides.add_slide(blank)
+        bg = slide_data.get("background")
+        if bg:
+            slide.background.fill.solid()
+            slide.background.fill.fore_color.rgb = RGBColor.from_string(hex_color(bg, "FFFFFF"))
+        for el in slide_data.get("elements", []):
+            etype = str(el.get("type", "text"))
+            if etype == "text":
+                add_schema_text(slide, el, sx, sy)
+            elif etype in {"rect", "shape"}:
+                add_schema_rect(slide, el, sx, sy, rounded=False)
+            elif etype in {"rrect", "card"}:
+                add_schema_rect(slide, el, sx, sy, rounded=True)
+            elif etype == "image":
+                add_schema_image(slide, el, sx, sy, base_dir)
+            elif etype == "line":
+                add_schema_line(slide, el, sx, sy)
+            else:
+                fail(f"unsupported schema element type: {etype}")
+
+    prs.save(output)
+    print(f"pptx: {output}")
+    print(f"slides: {len(data.get('slides', []))}")
+
+
 def cmd_render_pptx(args: argparse.Namespace) -> None:
     pptx = Path(args.pptx).resolve()
     if not pptx.exists():
@@ -190,6 +348,9 @@ def parser() -> argparse.ArgumentParser:
     init.add_argument("--project", default="deckforge")
     init.set_defaults(func=cmd_init)
 
+    doctor = sub.add_parser("doctor")
+    doctor.set_defaults(func=cmd_doctor)
+
     html = sub.add_parser("html-to-png")
     html.add_argument("--html", required=True)
     html.add_argument("--out-dir", required=True)
@@ -202,6 +363,11 @@ def parser() -> argparse.ArgumentParser:
     imgs.add_argument("--pattern", default="slide-*.png")
     imgs.add_argument("--output", required=True)
     imgs.set_defaults(func=cmd_images_to_pptx)
+
+    schema = sub.add_parser("schema-to-pptx")
+    schema.add_argument("--schema", required=True)
+    schema.add_argument("--output", required=True)
+    schema.set_defaults(func=cmd_schema_to_pptx)
 
     render = sub.add_parser("render-pptx")
     render.add_argument("--pptx", required=True)

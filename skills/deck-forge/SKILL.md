@@ -67,6 +67,8 @@ Use this sequence unless the user gives a narrower task:
 5. Build a harness:
    - Use `harness-anything` to create a small adapter for the exact local tools in use.
    - Prefer deterministic file operations over GUI automation.
+   - For structured, repeatable decks, use a JSON element-router schema before writing custom PPTX code.
+   - Treat Windows WPS/MS Office COM as an optional backend; on macOS, default to `python-pptx` plus LibreOffice.
 6. Export:
    - For highest fidelity, screenshot each HTML slide and place the PNGs into PPTX.
    - For editability, recreate selected text/shapes with `python-pptx` only where needed.
@@ -101,12 +103,24 @@ python3 ~/plugins/deck-forge-harness/scripts/deckforge.py render-pptx \
   --out-dir deckforge/qa
 ```
 
+```bash
+python3 ~/plugins/deck-forge-harness/scripts/deckforge.py doctor
+```
+
+```bash
+python3 ~/plugins/deck-forge-harness/scripts/deckforge.py schema-to-pptx \
+  --schema deckforge/harness/deck-schema.json \
+  --output deckforge/pptx/deck.pptx
+```
+
 ## Decision Rules
 
 - Use browser/Playwright capture for websites, dashboards, app screens, or live references.
 - Use frontend slide canvases for original design work.
 - Use direct PPTX file editing for assembly and light modifications.
+- Use JSON element routing for decks with repeated components or data-driven layouts.
 - Use PowerPoint/WPS GUI automation only when the user specifically needs behavior that cannot be done through file operations.
+- On Windows, WPS/MS Office COM can be a first-class live Office backend when installed; on macOS, do not promise WPS COM and use LibreOffice only for conversion/render QA.
 - If `frontend-design`, Playwright MCP, or a GUI automation harness is unavailable, state the fallback and keep moving with local HTML/Playwright/LibreOffice where possible.
 
 ## Completion Evidence
