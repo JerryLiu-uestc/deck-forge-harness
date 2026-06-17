@@ -22,9 +22,15 @@ On macOS and Linux, HTML to Editable PPT intentionally defaults to file-based au
 
 ## Demo
 
-Generated result:
+Generated result, shown as individual slide renders. The full PPTX has 5 slides; the README shows the first 4 for readability.
 
-![HTML to Editable PPT demo contact sheet](https://raw.githubusercontent.com/JerryLiu-uestc/html-to-editable-ppt/main/examples/html-to-editable-ppt-demo/qa/contact.png)
+![Demo slide 1](https://raw.githubusercontent.com/JerryLiu-uestc/html-to-editable-ppt/main/examples/html-to-editable-ppt-demo/qa/slide-1.png)
+
+![Demo slide 2](https://raw.githubusercontent.com/JerryLiu-uestc/html-to-editable-ppt/main/examples/html-to-editable-ppt-demo/qa/slide-2.png)
+
+![Demo slide 3](https://raw.githubusercontent.com/JerryLiu-uestc/html-to-editable-ppt/main/examples/html-to-editable-ppt-demo/qa/slide-3.png)
+
+![Demo slide 4](https://raw.githubusercontent.com/JerryLiu-uestc/html-to-editable-ppt/main/examples/html-to-editable-ppt-demo/qa/slide-4.png)
 
 The repository includes the editable PPTX and source used for this demo:
 
@@ -38,7 +44,7 @@ Prompt used for the demo:
 Use HTML to Editable PPT to create a 5-slide demo deck for this plugin.
 Show the workflow from intake to editable PPTX export and QA.
 Use a clean technical style, strong hierarchy, dark/light contrast, and make the result editable in PowerPoint.
-After generating the PPTX, render it, create a contact sheet, then open it in PowerPoint and check for text overflow or overlap.
+After generating the PPTX, render individual slide previews, then open it in PowerPoint and check for text overflow or overlap.
 ```
 
 ## Core Flow

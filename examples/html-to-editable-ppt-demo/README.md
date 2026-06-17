@@ -6,7 +6,7 @@ Files:
 
 - `deck-schema.json` - source schema with editable text, cards, lines, and layout positions.
 - `html-to-editable-ppt-demo.pptx` - generated editable PowerPoint deck.
-- `qa/contact.png` - rendered contact sheet used for visual QA.
+- `qa/slide-1.png` through `qa/slide-4.png` - rendered slide previews used in the root README.
 
 This demo was also opened in Microsoft PowerPoint for macOS and checked with real app screenshots. The PowerPoint check is important because native Office text wrapping can differ from LibreOffice/PDF rendering.
 
@@ -26,6 +26,5 @@ python scripts/html_to_editable_ppt.py render-pptx \
   --out-dir examples/html-to-editable-ppt-demo/qa
 
 python scripts/html_to_editable_ppt.py qa \
-  --render-dir examples/html-to-editable-ppt-demo/qa \
-  --contact-sheet examples/html-to-editable-ppt-demo/qa/contact.png
+  --render-dir examples/html-to-editable-ppt-demo/qa
 ```

@@ -22,9 +22,15 @@ HTML to Editable PPT 的目标不是“随便生成几页 PPT”，而是把 PPT
 
 ## Demo
 
-生成效果：
+生成效果，按单页展示。完整 PPTX 是 5 页，README 为了清晰只展示前 4 页。
 
-![HTML to Editable PPT demo contact sheet](https://raw.githubusercontent.com/JerryLiu-uestc/html-to-editable-ppt/main/examples/html-to-editable-ppt-demo/qa/contact.png)
+![Demo slide 1](https://raw.githubusercontent.com/JerryLiu-uestc/html-to-editable-ppt/main/examples/html-to-editable-ppt-demo/qa/slide-1.png)
+
+![Demo slide 2](https://raw.githubusercontent.com/JerryLiu-uestc/html-to-editable-ppt/main/examples/html-to-editable-ppt-demo/qa/slide-2.png)
+
+![Demo slide 3](https://raw.githubusercontent.com/JerryLiu-uestc/html-to-editable-ppt/main/examples/html-to-editable-ppt-demo/qa/slide-3.png)
+
+![Demo slide 4](https://raw.githubusercontent.com/JerryLiu-uestc/html-to-editable-ppt/main/examples/html-to-editable-ppt-demo/qa/slide-4.png)
 
 仓库里同时放了这份 demo 的可编辑 PPTX 和源文件：
 
@@ -38,7 +44,7 @@ HTML to Editable PPT 的目标不是“随便生成几页 PPT”，而是把 PPT
 用 HTML to Editable PPT 为这个插件创建一份 5 页 demo PPT。
 展示从需求确认、可编辑 PPTX 导出到 QA 检查的工作流。
 使用干净的技术风格、清晰的信息层级、深浅对比，并确保结果在 PowerPoint 中可编辑。
-生成 PPTX 后，渲染预览图，生成 contact sheet，然后在 PowerPoint 中打开检查是否有文本溢出或遮挡。
+生成 PPTX 后，渲染单页预览图，然后在 PowerPoint 中打开检查是否有文本溢出或遮挡。
 ```
 
 ## 核心流程
