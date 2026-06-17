@@ -1,0 +1,38 @@
+{
+  "name": "deck-forge-harness",
+  "version": "0.1.0",
+  "description": "Agentic slide-deck workflow plugin that combines Playwright-style capture, frontend slide design, and task-specific harness automation for PPTX delivery.",
+  "author": {
+    "name": "Jerry"
+  },
+  "homepage": "https://github.com/jerry/deck-forge-harness",
+  "repository": "https://github.com/jerry/deck-forge-harness",
+  "license": "MIT",
+  "keywords": [
+    "pptx",
+    "powerpoint",
+    "playwright",
+    "frontend-design",
+    "harness",
+    "slides"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "DeckForge Harness",
+    "shortDescription": "Build decks from web capture, frontend design, and verified PPTX export.",
+    "longDescription": "DeckForge Harness gives Codex a repeatable workflow for presentation projects: capture web evidence with Playwright or browser tools, design slides as frontend canvases, create task-specific harnesses for local tools, then export and verify PowerPoint deliverables.",
+    "developerName": "Jerry",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write",
+      "Automation"
+    ],
+    "defaultPrompt": [
+      "Use DeckForge to build a PPT from web research.",
+      "Capture this site and design slides from it.",
+      "Create a harness for this deck workflow."
+    ],
+    "brandColor": "#0F766E"
+  }
+}
