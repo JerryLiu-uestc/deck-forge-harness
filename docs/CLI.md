@@ -1,6 +1,6 @@
 # DeckForge CLI Reference
 
-Most users only need `install.sh` and the Codex skills. This page is for manual CLI use and troubleshooting.
+Most users only need to enable the Codex plugin. This page is for manual CLI use and troubleshooting.
 
 ## Commands
 

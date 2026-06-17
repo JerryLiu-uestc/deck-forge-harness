@@ -1,6 +1,6 @@
 # DeckForge CLI 参考
 
-大多数用户只需要运行 `install.sh` 并在 Codex 中启用插件。本页用于手动调用 CLI 和排查问题。
+大多数用户只需要在 Codex 中启用插件。本页用于手动调用 CLI 和排查问题。
 
 ## 命令
 

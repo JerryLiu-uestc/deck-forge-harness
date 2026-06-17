@@ -45,21 +45,15 @@ DeckForge 支持多种输出策略：
 
 ## 安装
 
-运行一个命令：
+推荐方式：
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/JerryLiu-uestc/deck-forge-harness/main/install.sh | bash
-```
-
-或者在 GitHub 下载 ZIP，解压后运行：
-
-```bash
-bash install.sh
-```
+1. 在 GitHub 下载本仓库 ZIP。
+2. 解压到本地。
+3. 在 Codex 中安装或启用本地插件文件夹 `deck-forge-harness`。
 
 然后重启 Codex 或刷新插件列表，在 **Personal** marketplace 里启用 **DeckForge Harness**。
 
-安装脚本会下载插件、安装 Python 依赖、注册 Codex marketplace，并在检测到可用包管理器时安装 LibreOffice / Poppler。
+详细安装说明和可选依赖配置：[INSTALL-zh.md](INSTALL-zh.md)
 
 ## 使用
 

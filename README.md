@@ -45,21 +45,15 @@ It does not magically recover native chart data, hidden design layers, or exact 
 
 ## Install
 
-Run one command:
+Recommended:
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/JerryLiu-uestc/deck-forge-harness/main/install.sh | bash
-```
-
-Or download the repository ZIP from GitHub, unzip it, and run:
-
-```bash
-bash install.sh
-```
+1. Download this repository as a ZIP from GitHub.
+2. Unzip it locally.
+3. In Codex, install or enable the local plugin folder `deck-forge-harness`.
 
 Then restart Codex or refresh plugins, and enable **DeckForge Harness** from the **Personal** marketplace.
 
-The installer downloads the plugin, installs Python dependencies, registers the Codex marketplace entry, and installs LibreOffice/Poppler when a supported package manager is available.
+Detailed install notes and optional dependency setup: [INSTALL.md](INSTALL.md)
 
 ## Use
 
