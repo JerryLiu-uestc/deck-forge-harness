@@ -11,31 +11,66 @@ DeckForge is the orchestrator skill for a presentation workflow built around thr
 2. **Design**: build each slide as a frontend canvas using `frontend-design` when available; otherwise create HTML/CSS/SVG with the same discipline.
 3. **Harness**: write a small task-specific automation wrapper that renders, exports, checks, and iterates until the deck is deliverable.
 
+## Non-Negotiable Intake Gate
+
+For any deck creation or redesign request, the first response must ask intake questions and wait for user confirmation before creating files, generating slides, capturing sources, or editing PPTX. Do not infer missing deck direction from defaults.
+
+Ask and lock:
+
+- page count;
+- title;
+- audience and use case;
+- source material scope, including whether web capture is allowed;
+- language: Chinese, English, or bilingual;
+- dark, light, or mixed background system;
+- desired style: premium atmospheric, clean professional, academic defense, product launch, technical report, or user-specified;
+- editability target: full-slide images, editable hybrid, or image-to-editable reconstruction;
+- quality reference: user-provided deck/images, or an agreed verbal quality bar;
+- exact terms/names that must not be changed;
+- whether the user approves the proposed visual direction and slide plan.
+
+After intake, produce a slide plan and visual direction summary. Wait for approval before capture/design/export unless the user explicitly asks for analysis only.
+
+## Visual Quality Bar
+
+Every DeckForge deck should aim for a visibly polished, presentation-ready result. "Good-looking" is not optional; convert it into checkable criteria:
+
+- strong main visual or dominant information structure on each slide;
+- clear hierarchy, confident title treatment, and deliberate typography;
+- enough visual density for the context, avoiding sparse title-and-bullet pages;
+- coherent palette, icon language, spacing, and repeated design motif;
+- high-quality screenshots/assets when the deck discusses real software, websites, products, or games;
+- formal credibility for academic/report decks, and product-level polish for commercial decks;
+- varied layouts across the deck while preserving a consistent design system.
+
+Before exporting PPTX, create or inspect preview images. If a slide looks generic, sparse, poorly aligned, low contrast, or weaker than the agreed quality reference, revise it before asking for final confirmation.
+
 ## Default Pipeline
 
 Use this sequence unless the user gives a narrower task:
 
-1. Create a `deckforge/` workspace under the project:
+1. Complete intake and get approval for the slide plan plus visual direction.
+2. Create a `deckforge/` workspace under the project:
    - `captures/` for screenshots and source pulls
    - `slides/` for HTML slide canvases
    - `renders/` for PNG previews
    - `pptx/` for generated decks
    - `harness/` for project-specific scripts
-2. Capture source material:
+3. Capture source material:
    - Prefer a Playwright MCP/browser tool if available.
    - Use local Playwright only when no MCP/browser tool is available.
    - Store screenshots and a short `sources.json`.
-3. Design slides:
+4. Design slides:
    - If `frontend-design` is installed, use it for visual direction and component quality.
    - Keep slides as fixed 16:9 canvases, one HTML file per deck or per slide.
    - Avoid relying on PowerPoint layout while designing; PowerPoint is an export target.
-4. Build a harness:
+5. Build a harness:
    - Use `harness-anything` to create a small adapter for the exact local tools in use.
    - Prefer deterministic file operations over GUI automation.
-5. Export:
+6. Export:
    - For highest fidelity, screenshot each HTML slide and place the PNGs into PPTX.
    - For editability, recreate selected text/shapes with `python-pptx` only where needed.
-6. Verify:
+7. Verify:
    - Render PPTX to PDF/images.
    - Check page count, nonblank output, screenshot contact sheet, and obvious cropping.
    - Iterate before final response.
@@ -79,6 +114,7 @@ python3 ~/plugins/deck-forge-harness/scripts/deckforge.py render-pptx \
 Final responses should include:
 
 - generated PPTX path;
+- locked intake summary or a note that the task was analysis-only;
 - capture/source path when relevant;
 - render/contact-sheet path;
 - verification commands run;

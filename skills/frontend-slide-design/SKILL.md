@@ -7,6 +7,10 @@ description: Use this skill when designing presentation slides as HTML/CSS/React
 
 Design slides as frontend canvases first, then export to images or PPTX.
 
+## Intake Dependency
+
+Do not start visual design until DeckForge intake has locked the audience, use case, page count, title, language, source scope, style direction, editability target, and quality reference. If this information is missing, return to `deck-forge` intake instead of designing from assumptions.
+
 ## Canvas Contract
 
 - Use 16:9 fixed logical size: `1280x720` or `1920x1080`.
@@ -14,6 +18,21 @@ Design slides as frontend canvases first, then export to images or PPTX.
 - Use real text in HTML when screenshots are the export path; use separate PPTX reconstruction only for content that must remain editable.
 - Avoid tiny text, uncontrolled wrapping, and elements placed relative to viewport width.
 - Use actual captured images/screenshots when the slide discusses a real product, site, app, or game.
+
+## Design Quality Gate
+
+Before export, inspect each slide preview against these criteria:
+
+- It has a strong visual premise, not just text in boxes.
+- The title treatment looks authored: scale, weight, spacing, and placement are deliberate.
+- Layout density matches the deck type; formal reports still need diagrams, screenshots, charts, process flows, or evidence modules.
+- The slide has clear hierarchy from first glance to details.
+- Spacing is consistent and no content feels accidentally aligned.
+- Color and contrast work in the rendered preview.
+- The deck uses a recurring motif without repeating the same layout every page.
+- Screenshots and generated visuals are sharp enough to be read in presentation mode.
+
+If a slide fails, revise the frontend canvas before screenshotting it into PPTX.
 
 ## If `frontend-design` Exists
 
